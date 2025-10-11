@@ -1,37 +1,25 @@
-from pathlib import Path
+import re
 
-srt_file = Path(r"D:\End of Day Chill\lyric\Nơi Này Có Anh.srt")
-lrc_file = srt_file.with_suffix(".lrc")
+# === Đường dẫn file gốc và file xuất ra ===
+input_file = r"D:\End of Day Chill\lyric\Anh Vui_sync.txt"
+output_file = r"D:\End of Day Chill\lyric\Anh Vui.lrc"
 
-with srt_file.open("r", encoding="utf-8") as f:
-    blocks = f.read().strip().split("\n\n")
+def format_time(sec):
+    m = int(sec // 60)
+    s = sec % 60
+    return f"[{m:02d}:{s:05.2f}]"
 
-with lrc_file.open("w", encoding="utf-8") as f:
-    for block in blocks:
-        lines = block.strip().split("\n")
-        if len(lines) < 3:
-            continue
+with open(input_file, "r", encoding="utf-8") as f:
+    lines = f.readlines()
 
-        time_line = lines[1].strip()
-        start_time = time_line.split(" --> ")[0].strip()
+with open(output_file, "w", encoding="utf-8") as f:
+    for line in lines:
+        # Mỗi dòng dạng: f000001 0.000 24.040 "Ngày ấy cũng đến"
+        parts = re.match(r"f\d+\s+([\d.]+)\s+([\d.]+)\s+\"(.*)\"", line.strip())
+        if parts:
+            start = float(parts.group(1))
+            text = parts.group(3).strip()
+            # Chuyển thời gian sang định dạng [mm:ss.xx]
+            f.write(f"{format_time(start)} {text}\n")
 
-        try:
-            parts = start_time.split(":")
-            h = int(parts[0])
-            m = int(parts[1])
-            s_ms = parts[2].split(",")
-            s = int(s_ms[0])
-            ms = int(s_ms[1])
-        except Exception as e:
-            print(f"Lỗi khi xử lý thời gian: {start_time} ({e})")
-            continue
-
-        # Chuyển đổi về phút:giây.mili
-        total_minutes = h * 60 + m
-        timestamp = f"[{total_minutes:02d}:{s:02d}.{ms//10:02d}]"
-
-        # Gộp lyric
-        text = " ".join(line.strip() for line in lines[2:])
-        f.write(f"{timestamp} {text}\n")
-
-print(f"✅ Đã tạo file LRC: {lrc_file}")
+print("✅ Đã tạo file:", output_file)
