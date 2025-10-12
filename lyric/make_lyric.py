@@ -1,23 +1,19 @@
-import sys
-sys.stdout.reconfigure(encoding='utf-8')
-import whisper
-import os
+input_file = r"D:\End of Day Chill\lyric\Anh Vui_sync.txt"
+output_file = r"D:\End of Day Chill\lyric\Anh Vui.lrc"
 
-# === Chỉnh đường dẫn tới file nhạc của bạn ===
-audio_path = "Music/Cơ Hội Cuối.mp3"
+with open(input_file, "r", encoding="utf-8") as f:
+    lines = f.readlines()
 
-# === Tải model (có thể chọn: tiny, base, small, medium, large) ===
-model = whisper.load_model("base")
-
-print("dang nhan dien loi bai hat...")
-result = model.transcribe(audio_path, language="vi")
-
-# === Xuất ra file .lrc (dạng lyric chuẩn có timestamp) ===
-lrc_path = os.path.splitext(audio_path)[0] + ".lrc"
-with open(lrc_path, "w", encoding="utf-8") as f:
-    for seg in result["segments"]:
-        m, s = divmod(int(seg["start"]), 60)
-        timestamp = f"[{m:02d}:{s:02d}]"
-        f.write(f"{timestamp} {seg['text']}\n")
-
-print(f"Tao lyric thanh cong: {lrc_path}")
+with open(output_file, "w", encoding="utf-8") as f:
+    for line in lines:
+        if "|" in line:
+            time_part, lyric = line.strip().split("|", 1)
+            time_part = time_part.strip()
+            lyric = lyric.strip()
+            # đổi từ 00:00:12.50 -> [00:12.50]
+            if ":" in time_part:
+                t = time_part.split(":")
+                if len(t) == 3:
+                    m = int(t[1])
+                    s = float(t[2])
+                    f.write(f"[{m:02d}:{s:05.2f}] {lyric}\n")
