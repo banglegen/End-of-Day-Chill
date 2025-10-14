@@ -1,8 +1,8 @@
 import re
 
 # === Đường dẫn file gốc và file xuất ra ===
-input_file = r"D:\End of Day Chill\lyric\banhmikhong_output.txt"
-output_file = r"D:\End of Day Chill\lyric\Bánh Mì Không.lrc"
+input_file = r"D:\End of Day Chill\lyric\dangnamnhi_output.txt"
+output_file = r"D:\End of Day Chill\lyric\Đấng Nam Nhi.lrc"
 
 def format_time(sec):
     m = int(sec // 60)
