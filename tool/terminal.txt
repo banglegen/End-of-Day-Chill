@@ -1,2 +1,2 @@
-demucs -n mdx_extra_q --two-stems=vocals "D:\End of Day Chill\Music\saominhchuanamtaynhau.mp3"
-python -m aeneas.tools.execute_task "D:\End of Day Chill\separated\mdx_extra_q\dangnamnhi\vocals.wav" "D:\End of Day Chill\lyric\dangnamnhi.txt" "task_language=vie|is_text_type=plain|os_task_file_format=txt" "D:\End of Day Chill\lyric\dangnamnhi_output.txt"
+demucs -n mdx_extra_q --two-stems=vocals "D:\End of Day Chill\Music\cuoichinh.mp3"
+python -m aeneas.tools.execute_task "D:\End of Day Chill\separated\mdx_extra_q\cuoichinh\vocals.wav" "D:\End of Day Chill\lyric\cuoichinh.txt" "task_language=vie|is_text_type=plain|os_task_file_format=txt" "D:\End of Day Chill\lyric\cuoichinh_output.txt"
