@@ -41,7 +41,8 @@ let tracks = [
   { name: "Bánh Mì Không", artist: "Đạt G X DuUyên", url: "Music/banhmikhong.mp3" },
   { name: "Đường Tôi Chở Em Về", artist: "buitruonglinh", url: "Music/duongtoichoem.mp3" },
   { name: "Nơi Này Có Anh", artist: "Sơn Tùng M-TP", url: "Music/noinaycoanh.mp3" },
-  { name: "Cưới Chính", artist: "Nal X Truzg", url: "Music/cuoichinh.mp3" }
+  { name: "Cưới Chính", artist: "Nal X Truzg", url: "Music/cuoichinh.mp3" },
+  { name: "Pháp Ta Bà ", artist: "Bảo Vân x Domino Remix", url: "Music/phataba.mp3" }
 ];
 
 let idx = 0, isShuffled = false, repeatMode = 0;
